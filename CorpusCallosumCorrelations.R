@@ -28,5 +28,71 @@ t.test(segs[s22q, "cc_anterior"], segs[sTD, "cc_anterior"])
 #differences in everything except posterior
 
 #need absolute distance for lms, not just "distance"
+lms$absdist<-abs(lms$distance)
+lms$distleft<-NA
+lms[which(lms$distance < 0), "distleft"]<-lms[which(lms$distance < 0 ), "absdist"]
+lms$distright<-NA
+lms[which(lms$distance > 0), "distright"]<-lms[which(lms$distance > 0), "absdist"]
 
 #absolute distance on lbs also?
+lbs$absr<-abs(lbs$rmean)
+lbs$absl<-abs(lbs$lmean)
+lbs$absall<-abs(lbs$allmean)
+
+#merge with segs
+colnames(segs)[[1]]<-"studyid"
+lm_seg<-merge(lms, segs, by="studyid")
+
+library(nlme)
+fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg)
+fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, data=lm_seg)
+fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg)
+fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg)
+fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg)
+#mid anterior and mid posterior significant
+
+lb_seg<-merge(lbs, segs, by="studyid")
+fit_posterior_lb<-lm(absall~cc_posterior, data=lb_seg)
+fit_mid_posterior_lb<-lm(absall~cc_mid_posterior, data=lb_seg)
+fit_central_lb<-lm(absall~cc_central, data=lb_seg)
+fit_mid_anterior_lb<-lm(absall~cc_mid_anterior, data=lb_seg)
+fit_anterior_lb<-lm(absall~cc_anterior, data=lb_seg)
+
+###but is that entirely drive by group differences?
+dfit_posterior_lm<-lme(acc~absdist+cc_posterior+dx.y, random=~1|studyid, data=lm_seg)
+dfit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior+dx.y, random=~1|studyid, data=lm_seg)
+dfit_central_lm<-lme(acc~absdist+cc_central+dx.y, random=~1|studyid, data=lm_seg)
+dfit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior+dx.y, random=~1|studyid, data=lm_seg)
+dfit_anterior_lm<-lme(acc~absdist+cc_anterior+dx.y, random=~1|studyid, data=lm_seg)
+#same as without Dx, but should still check if true within each Dx
+
+dfit_posterior_lb<-lm(absall~cc_posterior+dx.y, data=lb_seg)
+dfit_mid_posterior_lb<-lm(absall~cc_mid_posterior+dx.y, data=lb_seg)
+dfit_central_lb<-lm(absall~cc_central+dx.y, data=lb_seg)
+dfit_mid_anterior_lb<-lm(absall~cc_mid_anterior+dx.y, data=lb_seg)
+dfit_anterior_lb<-lm(absall~cc_anterior+dx.y, data=lb_seg)
+
+q22_fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="22q"),])
+q22_fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="22q"),])
+q22_fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="22q"),])
+q22_fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="22q"),])
+q22_fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="22q"),])
+
+td_fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="td"),])
+td_fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="td"),])
+td_fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="td"),])
+td_fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="td"),])
+td_fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="td"),])
+
+q22_fit_posterior_lb<-lm(absall~cc_posterior, data=lb_seg[which(lb_seg$dx.x=="22q"),])
+q22_fit_mid_posterior_lb<-lm(absall~cc_mid_posterior, data=lb_seg[which(lb_seg$dx.x=="22q"),])
+q22_fit_central_lb<-lm(absall~cc_central, data=lb_seg[which(lb_seg$dx.x=="22q"),])
+q22_fit_mid_anterior_lb<-lm(absall~cc_mid_anterior, data=lb_seg[which(lb_seg$dx.x=="22q"),])
+q22_fit_anterior_lb<-lm(absall~cc_anterior, data=lb_seg[which(lb_seg$dx.x=="22q"),])
+
+
+td_fit_posterior_lb<-lm(absall~cc_posterior, data=lb_seg[which(lb_seg$dx.x=="TD"),])
+td_fit_mid_posterior_lb<-lm(absall~cc_mid_posterior, data=lb_seg[which(lb_seg$dx.x=="TD"),])
+td_fit_central_lb<-lm(absall~cc_central, data=lb_seg[which(lb_seg$dx.x=="TD"),])
+td_fit_mid_anterior_lb<-lm(absall~cc_mid_anterior, data=lb_seg[which(lb_seg$dx.x=="TD"),])
+td_fit_anterior_lb<-lm(absall~cc_anterior, data=lb_seg[which(lb_seg$dx.x=="TD"),])
