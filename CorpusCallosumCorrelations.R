@@ -96,3 +96,23 @@ td_fit_mid_posterior_lb<-lm(absall~cc_mid_posterior, data=lb_seg[which(lb_seg$dx
 td_fit_central_lb<-lm(absall~cc_central, data=lb_seg[which(lb_seg$dx.x=="TD"),])
 td_fit_mid_anterior_lb<-lm(absall~cc_mid_anterior, data=lb_seg[which(lb_seg$dx.x=="TD"),])
 td_fit_anterior_lb<-lm(absall~cc_anterior, data=lb_seg[which(lb_seg$dx.x=="TD"),])
+
+#plotting
+
+for(i in seq(0, 16, by = 2)){
+	quartz()
+	plot(lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="22q"), "cc_mid_posterior"], lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="22q"), "acc"], pch = 19, col="hotpink", main=paste("LandMark Data at distance", i), xlab="Corpus Callosum Mid-Posterior", ylab= "Accuracy", ylim=c(0,100))
+	points(lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="td"), "cc_mid_posterior"], lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="td"), "acc"], pch = 19, col="blue")
+	d <- lm_seg[which(lm_seg$absdist==i),]
+	lines(sort(lm_seg[which(lm_seg$absdist==i),"cc_mid_posterior"]), predict(lm(acc~cc_mid_posterior, data=d), d[order(d$cc_mid_posterior),]))
+}
+for(i in seq(0, 16, by = 2)){
+	quartz()
+	plot(lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="22q"), "cc_mid_anterior"], lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="22q"), "acc"], pch = 19, col="hotpink", main=paste("LandMark Data at distance", i), xlab="Corpus Callosum Mid-Anterior", ylab= "Accuracy", ylim=c(0,100))
+	points(lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="td"), "cc_mid_anterior"], lm_seg[which(lm_seg$absdist == i & lm_seg$dx.x=="td"), "acc"], pch = 19, col="blue")
+	d <- lm_seg[which(lm_seg$absdist==i),]
+	lines(sort(lm_seg[which(lm_seg$absdist==i),"cc_mid_anterior"]), predict(lm(acc~cc_mid_anterior, data=d), d[order(d$cc_mid_anterior),]))
+}
+quartz()
+plot(1,1, xlim = c(0,10), ylim= c(0,10))
+legend(2, 9, c("22q (n = 54)", "TD (n = 34)"), pch = c(19, 19), col = c("hotpink","blue"))
