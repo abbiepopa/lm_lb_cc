@@ -116,3 +116,22 @@ for(i in seq(0, 16, by = 2)){
 quartz()
 plot(1,1, xlim = c(0,10), ylim= c(0,10))
 legend(2, 9, c("22q (n = 54)", "TD (n = 34)"), pch = c(19, 19), col = c("hotpink","blue"))
+
+###follow-ups###
+# don't collapse across left and right in line bisection
+#are there outliers in landmark
+
+#allmean
+lrfit_posterior_lb<-lm(allmean~cc_posterior, data=lb_seg)
+lrfit_mid_posterior_lb<-lm(allmean~cc_mid_posterior, data=lb_seg)
+lrfit_central_lb<-lm(allmean~cc_central, data=lb_seg)
+lrfit_mid_anterior_lb<-lm(allmean~cc_mid_anterior, data=lb_seg)
+lrfit_anterior_lb<-lm(allmean~cc_anterior, data=lb_seg)
+
+lb_seg$allmeansq <- lb_seg$allmean^2
+
+lrfit_posterior_lb_sq<-lm(cc_posterior~allmean*allmeansq, data=lb_seg)
+lrfit_mid_posterior_lb_sq<-lm(cc_mid_posterior~allmean*allmeansq, data=lb_seg)
+lrfit_central_lb_sq<-lm(cc_central~allmean*allmeansq, data=lb_seg)
+lrfit_mid_anterior_lb_sq<-lm(cc_mid_anterior~allmean*allmeansq, data=lb_seg)
+lrfit_anterior_lb_sq<-lm(cc_anterior~allmean*allmeansq, data=lb_seg)
