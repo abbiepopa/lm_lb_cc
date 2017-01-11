@@ -128,6 +128,7 @@ lrfit_central_lb<-lm(allmean~cc_central, data=lb_seg)
 lrfit_mid_anterior_lb<-lm(allmean~cc_mid_anterior, data=lb_seg)
 lrfit_anterior_lb<-lm(allmean~cc_anterior, data=lb_seg)
 
+#does all mean require a quadratic component since negative and positive are both further from center?
 lb_seg$allmeansq <- lb_seg$allmean^2
 
 lrfit_posterior_lb_sq<-lm(cc_posterior~allmean*allmeansq, data=lb_seg)
@@ -135,3 +136,5 @@ lrfit_mid_posterior_lb_sq<-lm(cc_mid_posterior~allmean*allmeansq, data=lb_seg)
 lrfit_central_lb_sq<-lm(cc_central~allmean*allmeansq, data=lb_seg)
 lrfit_mid_anterior_lb_sq<-lm(cc_mid_anterior~allmean*allmeansq, data=lb_seg)
 lrfit_anterior_lb_sq<-lm(cc_anterior~allmean*allmeansq, data=lb_seg)
+
+#or should we have to variables? left error and right error?
