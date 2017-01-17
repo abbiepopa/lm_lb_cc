@@ -137,4 +137,63 @@ lrfit_central_lb_sq<-lm(cc_central~allmean*allmeansq, data=lb_seg)
 lrfit_mid_anterior_lb_sq<-lm(cc_mid_anterior~allmean*allmeansq, data=lb_seg)
 lrfit_anterior_lb_sq<-lm(cc_anterior~allmean*allmeansq, data=lb_seg)
 
-#or should we have to variables? left error and right error?
+#or should we have two variables? left error and right error?
+lb_seg$err_to_lft <- 0
+lb_seg[which(lb_seg$allmean <0), "err_to_lft"]<- lb_seg[which(lb_seg$allmean < 0), "allmean"]
+lb_seg$err_to_rgt <- 0
+lb_seg[which(lb_seg$allmean > 0), "err_to_rgt"] <- lb_seg[which(lb_seg$allmean > 0), "allmean"]
+
+#lft err
+llrfit_posterior_lb<-lm(err_to_lft~cc_posterior, data=lb_seg)
+llrfit_mid_posterior_lb<-lm(err_to_lft~cc_mid_posterior, data=lb_seg)
+llrfit_central_lb<-lm(err_to_lft~cc_central, data=lb_seg)
+llrfit_mid_anterior_lb<-lm(err_to_lft~cc_mid_anterior, data=lb_seg)
+llrfit_anterior_lb<-lm(err_to_lft~cc_anterior, data=lb_seg)
+
+#rgt err
+rlrfit_posterior_lb<-lm(err_to_rgt ~cc_posterior, data=lb_seg)
+rlrfit_mid_posterior_lb<-lm(err_to_rgt ~cc_mid_posterior, data=lb_seg)
+rlrfit_central_lb<-lm(err_to_rgt ~cc_central, data=lb_seg)
+rlrfit_mid_anterior_lb<-lm(err_to_rgt ~cc_mid_anterior, data=lb_seg)
+rlrfit_anterior_lb<-lm(err_to_rgt ~cc_anterior, data=lb_seg)
+
+summary(llrfit_posterior_lb)
+summary(llrfit_mid_posterior_lb)
+summary(llrfit_central_lb)
+summary(llrfit_mid_anterior_lb)
+summary(llrfit_anterior_lb)
+
+summary(rlrfit_posterior_lb)
+summary(rlrfit_mid_posterior_lb)
+summary(rlrfit_central_lb)
+summary(rlrfit_mid_anterior_lb)
+summary(rlrfit_anterior_lb)
+
+###landmark outliers were already removed, are the CC outliers though?
+
+library(psych)
+describe(segs)
+
+#extra large CCs
+big <- function(a){
+	return(mean(a)+(2.5*sd(a)))
+} 
+
+big_posterior <- segs[which(segs$cc_posterior > big(segs$cc_posterior)), "studyid"]
+big_mid_posterior <- segs[which(segs$cc_mid_posterior > big(segs$cc_mid_posterior)), "studyid"]
+big_central <- segs[which(segs$cc_central > big(segs$cc_central)), "studyid"]
+big_mid_anterior <- segs[which(segs$cc_mid_anterior > big(segs$cc_mid_anterior)), "studyid"]
+big_anterior <- segs[which(segs$cc_anterior > big(segs$cc_anterior)), "studyid"]
+
+
+#extra small CCs
+
+small <- function(a){
+	return(mean(a)-(2.5*sd(a)))
+}
+
+small_posterior <- segs[which(segs$cc_posterior < small(segs$cc_posterior)), "studyid"]
+small_mid_posterior <- segs[which(segs$cc_mid_posterior < small(segs$cc_mid_posterior)), "studyid"]
+small_central <- segs[which(segs$cc_central < small(segs$cc_central)), "studyid"]
+small_mid_anterior <- segs[which(segs$cc_mid_anterior < small(segs$cc_mid_anterior)), "studyid"]
+small_anterior <- segs[which(segs$cc_anterior < small(segs$cc_anterior)), "studyid"]
