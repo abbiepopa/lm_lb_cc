@@ -143,20 +143,21 @@ lb_seg[which(lb_seg$allmean <0), "err_to_lft"]<- lb_seg[which(lb_seg$allmean < 0
 lb_seg$err_to_rgt <- 0
 lb_seg[which(lb_seg$allmean > 0), "err_to_rgt"] <- lb_seg[which(lb_seg$allmean > 0), "allmean"]
 
-#lft err
+#lft err, errors to the right are set to zero
 llrfit_posterior_lb<-lm(err_to_lft~cc_posterior, data=lb_seg)
 llrfit_mid_posterior_lb<-lm(err_to_lft~cc_mid_posterior, data=lb_seg)
 llrfit_central_lb<-lm(err_to_lft~cc_central, data=lb_seg)
 llrfit_mid_anterior_lb<-lm(err_to_lft~cc_mid_anterior, data=lb_seg)
 llrfit_anterior_lb<-lm(err_to_lft~cc_anterior, data=lb_seg)
 
-#rgt err
+#rgt err, errors to the left are set to zero
 rlrfit_posterior_lb<-lm(err_to_rgt ~cc_posterior, data=lb_seg)
 rlrfit_mid_posterior_lb<-lm(err_to_rgt ~cc_mid_posterior, data=lb_seg)
 rlrfit_central_lb<-lm(err_to_rgt ~cc_central, data=lb_seg)
 rlrfit_mid_anterior_lb<-lm(err_to_rgt ~cc_mid_anterior, data=lb_seg)
 rlrfit_anterior_lb<-lm(err_to_rgt ~cc_anterior, data=lb_seg)
 
+#print results
 summary(llrfit_posterior_lb)
 summary(llrfit_mid_posterior_lb)
 summary(llrfit_central_lb)
