@@ -12,9 +12,17 @@ colnames(lms)<-tolower(colnames(lms))
 lbs<-lb[,c("StudyID","Gender", "Dx","AGEMONTHS","RMEAN","LMEAN","ALLMEAN")]
 colnames(lbs)<-tolower(colnames(lbs))
 
-#seg needs Measure.volume (that's actually studyid), CC_Posterior, CC_Mid_Posterior, CC_Central, CC_Mid_Anterior, CC_Anterior
-segs<-seg[,c("Measure.volume","DX","CC_Posterior","CC_Mid_Posterior","CC_Central","CC_Mid_Anterior","CC_Anterior")]
+#seg needs Measure.volume (that's actually studyid), CC_Posterior, CC_Mid_Posterior, CC_Central, CC_Mid_Anterior, CC_Anterior, CorticalWhiteMatterVol
+segs<-seg[,c("Measure.volume","DX","CC_Posterior","CC_Mid_Posterior","CC_Central","CC_Mid_Anterior","CC_Anterior", "CorticalWhiteMatterVol")]
 colnames(segs)<-tolower(colnames(segs))
+
+segs_notnorm<-segs
+
+segs$cc_posterior <- segs$cc_posterior/segs$corticalwhitemattervol
+segs$cc_mid_posterior <- segs$cc_mid_posterior/segs$corticalwhitemattervol
+segs$cc_central <- segs$cc_central/segs$corticalwhitemattervol
+segs$cc_mid_anterior <- segs$cc_mid_anterior/segs$corticalwhitemattervol
+segs$cc_anterior <- segs$cc_anterior/segs$corticalwhitemattervol
 
 s22q<-which(segs$dx == 2)
 sTD<-which(segs$dx == 1)
