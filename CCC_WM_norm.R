@@ -180,6 +180,19 @@ summary(rlrfit_anterior_lb)
 
 ###landmark outliers were already removed, are the CC outliers though?
 
+#lb by dx
+summary(lm(err_to_lft ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+
+summary(lm(err_to_lft ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_lft ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+
 library(psych)
 describe(segs)
 
