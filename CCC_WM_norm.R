@@ -291,3 +291,8 @@ plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_mid_posterior"], lb_seg[which(lb_seg$
 	dtd <- d[which(d$dx.x == "TD"),]
 	lines(sort(lb_seg[which(lb_seg$dx.x == "22q"),"cc_anterior"]), predict(lm(err_to_lft~cc_anterior, data=d22q), d22q[order(d22q$cc_anterior),]), col = "hotpink", lwd = 3)	
 	lines(sort(lb_seg[which(lb_seg$dx.x == "TD"),"cc_anterior"]), predict(lm(err_to_lft~cc_anterior, data=dtd), dtd[order(dtd$cc_anterior),]), col = "blue", lwd = 3)
+	
+	quartz()
+plot(1,1, xlim = c(0,10), ylim= c(0,10))
+legend(2, 9, c("22q (n = 61)", "TD (n = 40)"), pch = c(19, 19), col = c("hotpink","blue"))
+
