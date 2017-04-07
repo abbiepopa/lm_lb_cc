@@ -236,3 +236,58 @@ small_mid_posterior <- segs[which(segs$cc_mid_posterior < small(segs$cc_mid_post
 small_central <- segs[which(segs$cc_central < small(segs$cc_central)), "studyid"]
 small_mid_anterior <- segs[which(segs$cc_mid_anterior < small(segs$cc_mid_anterior)), "studyid"]
 small_anterior <- segs[which(segs$cc_anterior < small(segs$cc_anterior)), "studyid"]
+
+####graphs for line bisection###
+
+
+plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_posterior"], lb_seg[which(lb_seg$dx.x=="22q"), "err_to_lft"], pch = 19, col="hotpink", main="Line Bisection", xlab="Corpus Callosum Posterior", ylab= "Error to Left")
+	points(lb_seg[which(lb_seg$dx.x=="TD"), "cc_posterior"], lb_seg[which(lb_seg$dx.x=="TD"), "err_to_lft"], pch = 19, col="blue")
+	d <- lb_seg
+	lines(sort(lb_seg[,"cc_posterior"]), predict(lm(err_to_lft~cc_posterior, data=d), d[order(d$cc_posterior),]), lwd = 3)
+	d22q <- d[which(d$dx.x == "22q"),]
+	dtd <- d[which(d$dx.x == "TD"),]
+	lines(sort(lb_seg[which(lb_seg$dx.x == "22q"),"cc_posterior"]), predict(lm(err_to_lft~cc_posterior, data=d22q), d22q[order(d22q$cc_posterior),]), col = "hotpink", lwd = 3)	
+	lines(sort(lb_seg[which(lb_seg$dx.x == "TD"),"cc_posterior"]), predict(lm(err_to_lft~cc_posterior, data=dtd), dtd[order(dtd$cc_posterior),]), col = "blue", lwd = 3)
+	
+	
+
+plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_mid_posterior"], lb_seg[which(lb_seg$dx.x=="22q"), "err_to_lft"], pch = 19, col="hotpink", main="Line Bisection", xlab="Corpus Callosum Mid-Posterior", ylab= "Error to Left")
+	points(lb_seg[which(lb_seg$dx.x=="TD"), "cc_mid_posterior"], lb_seg[which(lb_seg$dx.x=="TD"), "err_to_lft"], pch = 19, col="blue")
+	d <- lb_seg
+	lines(sort(lb_seg[,"cc_mid_posterior"]), predict(lm(err_to_lft~cc_mid_posterior, data=d), d[order(d$cc_mid_posterior),]), lwd = 3)
+	d22q <- d[which(d$dx.x == "22q"),]
+	dtd <- d[which(d$dx.x == "TD"),]
+	lines(sort(lb_seg[which(lb_seg$dx.x == "22q"),"cc_mid_posterior"]), predict(lm(err_to_lft~cc_mid_posterior, data=d22q), d22q[order(d22q$cc_mid_posterior),]), col = "hotpink", lwd = 3)	
+	lines(sort(lb_seg[which(lb_seg$dx.x == "TD"),"cc_mid_posterior"]), predict(lm(err_to_lft~cc_mid_posterior, data=dtd), dtd[order(dtd$cc_mid_posterior),]), col = "blue", lwd = 3)
+	
+	
+	plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_central"], lb_seg[which(lb_seg$dx.x=="22q"), "err_to_lft"], pch = 19, col="hotpink", main="Line Bisection", xlab="Corpus Callosum Central", ylab= "Error to Left")
+	points(lb_seg[which(lb_seg$dx.x=="TD"), "cc_central"], lb_seg[which(lb_seg$dx.x=="TD"), "err_to_lft"], pch = 19, col="blue")
+	d <- lb_seg
+	lines(sort(lb_seg[,"cc_central"]), predict(lm(err_to_lft~cc_central, data=d), d[order(d$cc_central),]), lwd = 3)
+	d22q <- d[which(d$dx.x == "22q"),]
+	dtd <- d[which(d$dx.x == "TD"),]
+	lines(sort(lb_seg[which(lb_seg$dx.x == "22q"),"cc_central"]), predict(lm(err_to_lft~cc_central, data=d22q), d22q[order(d22q$cc_central),]), col = "hotpink", lwd = 3)	
+	lines(sort(lb_seg[which(lb_seg$dx.x == "TD"),"cc_central"]), predict(lm(err_to_lft~cc_central, data=dtd), dtd[order(dtd$cc_central),]), col = "blue", lwd = 3)
+	
+	
+	
+		plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_mid_anterior"], lb_seg[which(lb_seg$dx.x=="22q"), "err_to_lft"], pch = 19, col="hotpink", main="Line Bisection", xlab="Corpus Callosum Mid Anterior", ylab= "Error to Left")
+	points(lb_seg[which(lb_seg$dx.x=="TD"), "cc_mid_anterior"], lb_seg[which(lb_seg$dx.x=="TD"), "err_to_lft"], pch = 19, col="blue")
+	d <- lb_seg
+	lines(sort(lb_seg[,"cc_mid_anterior"]), predict(lm(err_to_lft~cc_mid_anterior, data=d), d[order(d$cc_mid_anterior),]), lwd = 3)
+	d22q <- d[which(d$dx.x == "22q"),]
+	dtd <- d[which(d$dx.x == "TD"),]
+	lines(sort(lb_seg[which(lb_seg$dx.x == "22q"),"cc_mid_anterior"]), predict(lm(err_to_lft~cc_mid_anterior, data=d22q), d22q[order(d22q$cc_mid_anterior),]), col = "hotpink", lwd = 3)	
+	lines(sort(lb_seg[which(lb_seg$dx.x == "TD"),"cc_mid_anterior"]), predict(lm(err_to_lft~cc_mid_anterior, data=dtd), dtd[order(dtd$cc_mid_anterior),]), col = "blue", lwd = 3)
+		
+	
+	
+		plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_anterior"], lb_seg[which(lb_seg$dx.x=="22q"), "err_to_lft"], pch = 19, col="hotpink", main="Line Bisection", xlab="Corpus Callosum Anterior", ylab= "Error to Left")
+	points(lb_seg[which(lb_seg$dx.x=="TD"), "cc_anterior"], lb_seg[which(lb_seg$dx.x=="TD"), "err_to_lft"], pch = 19, col="blue")
+	d <- lb_seg
+	lines(sort(lb_seg[,"cc_anterior"]), predict(lm(err_to_lft~cc_anterior, data=d), d[order(d$cc_anterior),]), lwd = 3)
+	d22q <- d[which(d$dx.x == "22q"),]
+	dtd <- d[which(d$dx.x == "TD"),]
+	lines(sort(lb_seg[which(lb_seg$dx.x == "22q"),"cc_anterior"]), predict(lm(err_to_lft~cc_anterior, data=d22q), d22q[order(d22q$cc_anterior),]), col = "hotpink", lwd = 3)	
+	lines(sort(lb_seg[which(lb_seg$dx.x == "TD"),"cc_anterior"]), predict(lm(err_to_lft~cc_anterior, data=dtd), dtd[order(dtd$cc_anterior),]), col = "blue", lwd = 3)
