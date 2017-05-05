@@ -217,6 +217,18 @@ summary(lm(err_to_lft ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
 summary(lm(err_to_lft ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
 summary(lm(err_to_lft ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
 
+summary(lm(err_to_rgt ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_rgt ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_rgt ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_rgt ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+summary(lm(err_to_rgt ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "22q"),]))
+
+summary(lm(err_to_rgt ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
+summary(lm(err_to_rgt ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
+summary(lm(err_to_rgt ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
+summary(lm(err_to_rgt ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
+summary(lm(err_to_rgt ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
+
 library(psych)
 describe(segs)
 
@@ -243,6 +255,8 @@ small_mid_posterior <- segs[which(segs$cc_mid_posterior < small(segs$cc_mid_post
 small_central <- segs[which(segs$cc_central < small(segs$cc_central)), "studyid"]
 small_mid_anterior <- segs[which(segs$cc_mid_anterior < small(segs$cc_mid_anterior)), "studyid"]
 small_anterior <- segs[which(segs$cc_anterior < small(segs$cc_anterior)), "studyid"]
+
+###note there are no SCA outliers
 
 ####graphs for line bisection###
 
@@ -323,3 +337,39 @@ sca_fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, d
 sca_fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
 sca_fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
 sca_fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
+
+summary(lm(err_to_lft ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_lft ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_lft ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_lft ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_lft ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+
+summary(lm(err_to_rgt ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_rgt ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_rgt ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_rgt ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+summary(lm(err_to_rgt ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "XXX"),]))
+
+summary(lm(err_to_lft ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_lft ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_lft ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_lft ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_lft ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+
+summary(lm(err_to_rgt ~ cc_posterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_rgt ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_rgt ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_rgt ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+summary(lm(err_to_rgt ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "XXY"),]))
+
+summary(lm(err_to_lft ~ cc_posterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_lft ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_lft ~ cc_central, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_lft ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_lft ~ cc_anterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+
+summary(lm(err_to_rgt ~ cc_posterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_rgt ~ cc_mid_posterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_rgt ~ cc_central, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_rgt ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
+summary(lm(err_to_rgt ~ cc_anterior, data = lb_seg[which(lb_seg$dx.y == 3),]))
