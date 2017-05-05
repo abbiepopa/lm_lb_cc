@@ -1,4 +1,4 @@
-setwd("~/Documents/Lab/Landmark Line Bisection/Data")
+setwd("~/Documents/cycle2/linemark/data/processed")
 
 lm<-read.csv("lm.csv")
 lb<-read.csv("lb.csv")
@@ -26,14 +26,21 @@ segs$cc_anterior <- segs$cc_anterior/segs$corticalwhitemattervol
 
 s22q<-which(segs$dx == 2)
 sTD<-which(segs$dx == 1)
+sca<-which(segs$dx == 3)
 
 #probably need to know if CC volumes are different between groups
-t.test(segs[s22q, "cc_posterior"], segs[sTD, "cc_posterior"])
-t.test(segs[s22q, "cc_mid_posterior"], segs[sTD, "cc_mid_posterior"])
-t.test(segs[s22q, "cc_central"], segs[sTD, "cc_central"])
-t.test(segs[s22q, "cc_mid_anterior"], segs[sTD, "cc_mid_anterior"])
-t.test(segs[s22q, "cc_anterior"], segs[sTD, "cc_anterior"])
+#t.test(segs[s22q, "cc_posterior"], segs[sTD, "cc_posterior"])
+#t.test(segs[s22q, "cc_mid_posterior"], segs[sTD, "cc_mid_posterior"])
+#t.test(segs[s22q, "cc_central"], segs[sTD, "cc_central"])
+#t.test(segs[s22q, "cc_mid_anterior"], segs[sTD, "cc_mid_anterior"])
+#t.test(segs[s22q, "cc_anterior"], segs[sTD, "cc_anterior"])
 #differences in everything except posterior
+
+pairwise.t.test(segs$cc_posterior, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_mid_posterior, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_central, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_anterior, segs$dx, p.adjust.method = "none")
 
 #need absolute distance for lms, not just "distance"
 lms$absdist<-abs(lms$distance)
@@ -296,3 +303,23 @@ plot(lb_seg[which(lb_seg$dx.x=="22q"), "cc_mid_posterior"], lb_seg[which(lb_seg$
 plot(1,1, xlim = c(0,10), ylim= c(0,10))
 legend(2, 9, c("22q (n = 61)", "TD (n = 40)"), pch = c(19, 19), col = c("hotpink","blue"))
 
+
+###sca - landmark
+
+xxx_fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxx"),])
+xxx_fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxx"),])
+xxx_fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxx"),])
+xxx_fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxx"),])
+xxx_fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxx"),])
+
+xxy_fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxy"),])
+xxy_fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxy"),])
+xxy_fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxy"),])
+xxy_fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxy"),])
+xxy_fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.x=="xxy"),])
+
+sca_fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
+sca_fit_mid_posterior_lm<-lme(acc~absdist+cc_mid_posterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
+sca_fit_central_lm<-lme(acc~absdist+cc_central, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
+sca_fit_mid_anterior_lm<-lme(acc~absdist+cc_mid_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
+sca_fit_anterior_lm<-lme(acc~absdist+cc_anterior, random=~1|studyid, data=lm_seg[which(lm_seg$dx.y==3),])
