@@ -95,3 +95,53 @@ d$gender <- as.factor(as.character(d$gender))
 summary(lm(age~dx, data = d))
 
 pairwise.t.test(d$age, d$dx, p.adjust.method="none")
+
+###iq###
+
+wasi <- read.csv('iq/WASI.csv')
+wasi_ii <- read.csv('iq/WASI-II.csv')
+wisc_iii <- read.csv('iq/WISC-III.csv')
+wisc_iv <- read.csv('iq/WISC-IV.csv')
+
+wasi<-wasi[,c("Study_ID","WASI_Full4_IQ")]
+wasi_ii<-wasi_ii[,c("Study_ID","WASI_II_Full4_IQ")]
+wisc_iii <- wisc_iii[,c("Study_ID", "WISCIII_FSIQ")]
+wisc_iv <-wisc_iv[,c("Study_ID", "WISCIV_FullScale_C")]
+
+colnames(wasi)<-c("studyid","iq")
+colnames(wasi_ii)<-c("studyid","iq")
+colnames(wisc_iii)<-c("studyid","iq")
+colnames(wisc_iv)<-c("studyid","iq")
+
+iq<-rbind(wasi, rbind(wasi_ii, rbind(wisc_iii, wisc_iv)))
+
+d<-merge(d, iq, by = "studyid", all.x=T, all.y=F)
+
+d[which(d$iq == -999), "iq"] <- NA
+
+d[which(is.na(d$iq)),]
+
+describeBy(d$iq, d$dx)
+
+pairwise.t.test(d$iq, d$dx, p.adjust.methods = "none")
+
+i22q <- which(d$dx == "q22")
+itd <- which(d$dx == "1td")
+ixxx <- which(d$dx == "XXX")
+ixxy <- which(d$dx == "XXY")
+isca <- which(d$dx2 == "sca")
+
+t.test(d[i22q, "iq"], d[itd, "iq"])
+(describe(d[i22q, "iq"])[['mean']] - describe(d[itd, "iq"])[['mean']])/describe(d$iq)[['sd']]
+
+t.test(d[i22q, "iq"], d[ixxx, "iq"])
+(describe(d[i22q, "iq"])[['mean']] - describe(d[ixxx, "iq"])[['mean']])/describe(d$iq)[['sd']]
+
+t.test(d[i22q, "iq"], d[ixxy, "iq"])
+(describe(d[i22q, "iq"])[['mean']] - describe(d[ixxy, "iq"])[['mean']])/describe(d$iq)[['sd']]
+
+t.test(d[ixxx, "iq"], d[itd, "iq"])
+(describe(d[ixxx, "iq"])[['mean']] - describe(d[itd, "iq"])[['mean']])/describe(d$iq)[['sd']]
+
+t.test(d[ixxy, "iq"], d[itd, "iq"])
+(describe(d[ixxy, "iq"])[['mean']] - describe(d[itd, "iq"])[['mean']])/describe(d$iq)[['sd']]
