@@ -46,3 +46,49 @@ t.test(d[which(d$dx == "q22"),"RMEAN"], d[which(d$dx == "1td"),"RMEAN"])
 
 library(psych)
 (describeBy(d$RMEAN, d$dx)$`1td`[['mean']] - describeBy(d$RMEAN, d$dx)$`q22`[['mean']])/describe(d$RMEAN)[['sd']]
+
+###Landmark###
+##SCA separate##
+#left side#
+pairwise.t.test(x = d$LEFT_d_out_in, g = d$dx, p.adjust.method = 'none')
+pairwise.t.test(x = d$LEFT_d_in_out, g = d$dx, p.adjust.method = 'none')
+#right side#
+pairwise.t.test(x = d$RIGHT_d_out_in, g = d$dx, p.adjust.method = 'none')
+pairwise.t.test(x = d$RIGHT_d_in_out, g = d$dx, p.adjust.method = 'none')
+##SCA together##
+#left side#
+pairwise.t.test(x = d$LEFT_d_out_in, g = d$dx2, p.adjust.method = 'none')
+pairwise.t.test(x = d$LEFT_d_in_out, g = d$dx2, p.adjust.method = 'none')
+#right side#
+pairwise.t.test(x = d$RIGHT_d_out_in, g = d$dx2, p.adjust.method = 'none')
+pairwise.t.test(x = d$RIGHT_d_in_out, g = d$dx2, p.adjust.method = 'none')
+
+#f-u for left out in (22q vs every group) and right out in (22q vs td, XXX, and SCA together)
+
+i22q <- which(d$dx == "q22")
+itd <- which(d$dx == "1td")
+ixxx <- which(d$dx == "XXX")
+ixxy <- which(d$dx == "XXY")
+isca <- which(d$dx2 == "sca")
+
+t.test(d[i22q, "LEFT_d_out_in"], d[itd, "LEFT_d_out_in"])
+(describe(d[i22q, "LEFT_d_out_in"])[['mean']] - describe(d[itd, "LEFT_d_out_in"])[['mean']])/describe(d$LEFT_d_out_in)[['sd']]
+
+t.test(d[i22q, "LEFT_d_out_in"], d[ixxx, "LEFT_d_out_in"])
+(describe(d[i22q, "LEFT_d_out_in"])[['mean']] - describe(d[ixxx, "LEFT_d_out_in"])[['mean']])/describe(d$LEFT_d_out_in)[['sd']]
+
+t.test(d[i22q, "LEFT_d_out_in"], d[ixxy, "LEFT_d_out_in"])
+(describe(d[i22q, "LEFT_d_out_in"])[['mean']] - describe(d[ixxy, "LEFT_d_out_in"])[['mean']])/describe(d$LEFT_d_out_in)[['sd']]
+
+t.test(d[i22q, "LEFT_d_out_in"], d[isca, "LEFT_d_out_in"])
+(describe(d[i22q, "LEFT_d_out_in"])[['mean']] - describe(d[isca, "LEFT_d_out_in"])[['mean']])/describe(d$LEFT_d_out_in)[['sd']]
+
+
+t.test(d[i22q, "RIGHT_d_out_in"], d[itd, "RIGHT_d_out_in"])
+(describe(d[i22q, "RIGHT_d_out_in"])[['mean']] - describe(d[itd, "RIGHT_d_out_in"])[['mean']])/describe(d$RIGHT_d_out_in)[['sd']]
+
+t.test(d[i22q, "RIGHT_d_out_in"], d[ixxx, "RIGHT_d_out_in"])
+(describe(d[i22q, "RIGHT_d_out_in"])[['mean']] - describe(d[ixxx, "RIGHT_d_out_in"])[['mean']])/describe(d$RIGHT_d_out_in)[['sd']]
+
+t.test(d[i22q, "RIGHT_d_out_in"], d[isca, "RIGHT_d_out_in"])
+(describe(d[i22q, "RIGHT_d_out_in"])[['mean']] - describe(d[isca, "RIGHT_d_out_in"])[['mean']])/describe(d$RIGHT_d_out_in)[['sd']]
