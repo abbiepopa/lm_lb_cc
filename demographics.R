@@ -86,3 +86,12 @@ proc_out_demo$age<-unlist(lapply(proc_out_demo$age, age_in_mo))
 proc_out_demo$dx2<-unlist(lapply(proc_out_demo$dx, dx2er))
 
 d<-rbind(d,proc_out_demo)
+
+library(psych)
+describeBy(d$age, d$dx)
+
+d$gender <- as.factor(as.character(d$gender))
+
+summary(lm(age~dx, data = d))
+
+pairwise.t.test(d$age, d$dx, p.adjust.method="none")
