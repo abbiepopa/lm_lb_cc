@@ -57,6 +57,30 @@ lbs$absall<-abs(lbs$allmean)
 #merge with segs
 colnames(segs)[[1]]<-"studyid"
 lm_seg<-merge(lms, segs, by="studyid")
+lm_seg<-lm_seg[which(lm_seg$distance == 0),]
+
+pairwise.t.test(lm_seg$cc_posterior, lm_seg$dx.x, p.adjust.method = "fdr")
+pairwise.t.test(lm_seg$cc_mid_posterior, lm_seg$dx.x, p.adjust.method = "fdr")
+pairwise.t.test(lm_seg$cc_central, lm_seg$dx.x, p.adjust.method = "fdr")
+pairwise.t.test(lm_seg$cc_mid_anterior, lm_seg$dx.x, p.adjust.method = "fdr")
+pairwise.t.test(lm_seg$cc_anterior, lm_seg$dx.x, p.adjust.method = "fdr")
+
+library(psych)
+
+spec_t_test <- function(g1,g2,cc){
+	print(t.test(lm_seg[which(lm_seg$dx.x == g1), cc], lm_seg[which(lm_seg$dx.x == g2), cc]))
+	print((mean(lm_seg[which(lm_seg$dx.x == g1), cc]) - mean(lm_seg[which(lm_seg$dx.x == g2), cc]))/sd(lm_seg[,cc]))
+}
+
+spec_t_test("22q","td","cc_anterior")
+spec_t_test("22q","xxx", "cc_anterior")
+spec_t_test("22q","xxy", "cc_anterior")
+
+spec_t_test("xxy","td","cc_central")
+
+spec_t_test("22q","td","cc_posterior")
+spec_t_test("22q","xxx", "cc_posterior")
+spec_t_test("22q","xxy", "cc_posterior")
 
 library(nlme)
 fit_posterior_lm<-lme(acc~absdist+cc_posterior, random=~1|studyid, data=lm_seg)
