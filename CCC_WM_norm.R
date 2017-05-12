@@ -36,11 +36,11 @@ sca<-which(segs$dx == 3)
 #t.test(segs[s22q, "cc_anterior"], segs[sTD, "cc_anterior"])
 #differences in everything except posterior
 
-pairwise.t.test(segs$cc_posterior, segs$dx, p.adjust.method = "none")
-pairwise.t.test(segs$cc_mid_posterior, segs$dx, p.adjust.method = "none")
-pairwise.t.test(segs$cc_central, segs$dx, p.adjust.method = "none")
-pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "none")
-pairwise.t.test(segs$cc_anterior, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_posterior, segs$dx, p.adjust.method = "fdr")
+pairwise.t.test(segs$cc_mid_posterior, segs$dx, p.adjust.method = "fdr")
+pairwise.t.test(segs$cc_central, segs$dx, p.adjust.method = "fdr")
+pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "fdr")
+pairwise.t.test(segs$cc_anterior, segs$dx, p.adjust.method = "fdr")
 
 #need absolute distance for lms, not just "distance"
 lms$absdist<-abs(lms$distance)
@@ -71,6 +71,26 @@ spec_t_test <- function(g1,g2,cc){
 	print(t.test(lm_seg[which(lm_seg$dx.x == g1), cc], lm_seg[which(lm_seg$dx.x == g2), cc]))
 	print((mean(lm_seg[which(lm_seg$dx.x == g1), cc]) - mean(lm_seg[which(lm_seg$dx.x == g2), cc]))/sd(lm_seg[,cc]))
 }
+
+spec_t_test_sca <- function(g1,g2,cc){
+	print(t.test(lm_seg[which(lm_seg$dx.y == g1), cc], lm_seg[which(lm_seg$dx.y == g2), cc]))
+	print((mean(lm_seg[which(lm_seg$dx.y == g1), cc]) - mean(lm_seg[which(lm_seg$dx.y == g2), cc]))/sd(lm_seg[,cc]))
+}
+
+spec_t_test_sca(1,2,"cc_anterior")
+spec_t_test_sca(2,3,"cc_anterior")
+
+spec_t_test_sca(3,1,"cc_mid_anterior")
+
+spec_t_test_sca(3,1,"cc_central")
+spec_t_test_sca(2,3,"cc_central")
+
+spec_t_test_sca(2,3,"cc_mid_posterior")
+
+
+spec_t_test_sca(2,1,"cc_posterior")
+spec_t_test_sca(2,3,"cc_posterior")
+
 
 spec_t_test("22q","td","cc_anterior")
 spec_t_test("22q","xxx", "cc_anterior")
