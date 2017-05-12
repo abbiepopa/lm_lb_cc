@@ -94,7 +94,7 @@ d$gender <- as.factor(as.character(d$gender))
 
 summary(lm(age~dx, data = d))
 
-pairwise.t.test(d$age, d$dx, p.adjust.method="none")
+pairwise.t.test(d$age, d$dx, p.adjust.method="fdr")
 
 ###iq###
 
@@ -123,7 +123,7 @@ d[which(is.na(d$iq)),]
 
 describeBy(d$iq, d$dx)
 
-pairwise.t.test(d$iq, d$dx, p.adjust.methods = "none")
+pairwise.t.test(d$iq, d$dx, p.adjust.methods = "fdr")
 
 i22q <- which(d$dx == "q22")
 itd <- which(d$dx == "1td")

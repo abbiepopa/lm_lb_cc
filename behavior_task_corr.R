@@ -36,8 +36,7 @@ lmtout_gone <- function(s){
 d$lm_tast_out <- unlist(lapply(d$studyid, lmtout_gone))
 
 d <- na.omit(d)
-
-corr.test(d[,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN')], adjust = 'none')
+corr.test(d[,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN', 'ALLMEAN')], adjust = 'fdr')
 
 i22q <- which(d$dx == "q22")
 itd <- which(d$dx == "1td")
@@ -45,11 +44,11 @@ ixxx <- which(d$dx == "XXX")
 ixxy <- which(d$dx == "XXY")
 isca <- which(d$dx2 == "sca")
 
-corr.test(d[i22q,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN')], adjust = 'none')
-corr.test(d[itd,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN')], adjust = 'none')
-corr.test(d[ixxx,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN')], adjust = 'none')
-corr.test(d[ixxy,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN')], adjust = 'none')
-corr.test(d[isca,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN')], adjust = 'none')
+corr.test(d[i22q,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN', 'ALLMEAN')], adjust = 'fdr')
+corr.test(d[itd,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN', 'ALLMEAN')], adjust = 'fdr')
+corr.test(d[ixxx,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN', 'ALLMEAN')], adjust = 'fdr')
+corr.test(d[ixxy,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN', 'ALLMEAN')], adjust = 'fdr')
+corr.test(d[isca,c('LEFT_d_out_in','RIGHT_d_out_in','RMEAN','LMEAN', 'ALLMEAN')], adjust = 'fdr')
 
 ###don't run yet
 d_in <- d

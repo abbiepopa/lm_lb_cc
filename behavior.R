@@ -27,41 +27,48 @@ d$dx2 <- unlist(lapply(d$dx, dx2er))
 ###Line Bisection###
 ##SCA separate##
 #right hand#
-pairwise.t.test(x = d$RMEAN,g = d$dx, p.adjust.method = 'none')
+pairwise.t.test(x = d$RMEAN,g = d$dx, p.adjust.method = 'fdr')
 #left hand#
-pairwise.t.test(x = d$LMEAN,g = d$dx, p.adjust.method = 'none')
+pairwise.t.test(x = d$LMEAN,g = d$dx, p.adjust.method = 'fdr')
 #both hands#
+pairwise.t.test(x = d$ALLMEAN,g = d$dx, p.adjust.method = 'fdr')
 pairwise.t.test(x = d$ALLMEAN,g = d$dx, p.adjust.method = 'none')
 
 ##SCA combined##
 #right hand#
-pairwise.t.test(x = d$RMEAN,g = d$dx2, p.adjust.method = 'none')
+pairwise.t.test(x = d$RMEAN,g = d$dx2, p.adjust.method = 'fdr')
 #left hand#
-pairwise.t.test(x = d$LMEAN,g = d$dx2, p.adjust.method = 'none')
+pairwise.t.test(x = d$LMEAN,g = d$dx2, p.adjust.method = 'fdr')
 #both hands#
+pairwise.t.test(x = d$ALLMEAN,g = d$dx2, p.adjust.method = 'fdr')
 pairwise.t.test(x = d$ALLMEAN,g = d$dx2, p.adjust.method = 'none')
 
 #follow-up for right hand 22q vs td since that is what's significant#
 t.test(d[which(d$dx == "q22"),"RMEAN"], d[which(d$dx == "1td"),"RMEAN"])
 
+t.test(d[which(d$dx == "q22"),"ALLMEAN"], d[which(d$dx == "1td"),"ALLMEAN"])
+
 library(psych)
 (describeBy(d$RMEAN, d$dx)$`1td`[['mean']] - describeBy(d$RMEAN, d$dx)$`q22`[['mean']])/describe(d$RMEAN)[['sd']]
+
+library(psych)
+(describeBy(d$ALLMEAN, d$dx)$`1td`[['mean']] - describeBy(d$ALLMEAN, d$dx)$`q22`[['mean']])/describe(d$ALLMEAN)[['sd']]
 
 ###Landmark###
 ##SCA separate##
 #left side#
-pairwise.t.test(x = d$LEFT_d_out_in, g = d$dx, p.adjust.method = 'none')
-pairwise.t.test(x = d$LEFT_d_in_out, g = d$dx, p.adjust.method = 'none')
+pairwise.t.test(x = d$LEFT_d_out_in, g = d$dx, p.adjust.method = 'fdr')
+#pairwise.t.test(x = d$LEFT_d_in_out, g = d$dx, p.adjust.method = 'none')
 #right side#
-pairwise.t.test(x = d$RIGHT_d_out_in, g = d$dx, p.adjust.method = 'none')
-pairwise.t.test(x = d$RIGHT_d_in_out, g = d$dx, p.adjust.method = 'none')
+pairwise.t.test(x = d$RIGHT_d_out_in, g = d$dx, p.adjust.method = 'fdr')
+#pairwise.t.test(x = d$RIGHT_d_in_out, g = d$dx, p.adjust.method = 'none')
 ##SCA together##
 #left side#
-pairwise.t.test(x = d$LEFT_d_out_in, g = d$dx2, p.adjust.method = 'none')
-pairwise.t.test(x = d$LEFT_d_in_out, g = d$dx2, p.adjust.method = 'none')
+pairwise.t.test(x = d$LEFT_d_out_in, g = d$dx2, p.adjust.method = 'fdr')
+#pairwise.t.test(x = d$LEFT_d_in_out, g = d$dx2, p.adjust.method = 'none')
 #right side#
-pairwise.t.test(x = d$RIGHT_d_out_in, g = d$dx2, p.adjust.method = 'none')
-pairwise.t.test(x = d$RIGHT_d_in_out, g = d$dx2, p.adjust.method = 'none')
+pairwise.t.test(x = d$RIGHT_d_out_in, g = d$dx2, p.adjust.method = 'fdr')
+#pairwise.t.test(x = d$RIGHT_d_in_out, g = d$dx2, p.adjust.method = 'none')
 
 #f-u for left out in (22q vs every group) and right out in (22q vs td, XXX, and SCA together)
 
