@@ -145,3 +145,13 @@ t.test(d[ixxx, "iq"], d[itd, "iq"])
 
 t.test(d[ixxy, "iq"], d[itd, "iq"])
 (describe(d[ixxy, "iq"])[['mean']] - describe(d[itd, "iq"])[['mean']])/describe(d$iq)[['sd']]
+
+summary(lm(age~dx2, data = d))
+
+pairwise.t.test(d$iq, d$dx2, p.adjust.methods = "fdr")
+
+t.test(d[i22q, "iq"], d[isca, "iq"])
+(describe(d[i22q, "iq"])[['mean']] - describe(d[isca, "iq"])[['mean']])/describe(d$iq)[['sd']]
+
+t.test(d[isca, "iq"], d[itd, "iq"])
+(describe(d[isca, "iq"])[['mean']] - describe(d[itd, "iq"])[['mean']])/describe(d$iq)[['sd']]
