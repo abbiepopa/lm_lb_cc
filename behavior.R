@@ -64,6 +64,7 @@ c(tab$`1td`[,'sd'], tab$`q22`[,'sd'], tab$`sca`[,'sd']),
 c(tab$`1td`[,'se'], tab$`q22`[,'se'], tab$`sca`[,'se']),
 c(tab$`1td`[,'n'], tab$`q22`[,'n'], tab$`sca`[,'n']) )
 colnames(tab_out)<-c("dx","hand","mean","sd","se","n")
+tab_out$mean <- abs(tab_out$mean)
 write.csv(tab_out, "linebisection_for_graph.csv", row.names=F)
 
 ###Landmark###
@@ -111,3 +112,19 @@ t.test(d[i22q, "RIGHT_d_out_in"], d[ixxx, "RIGHT_d_out_in"])
 
 t.test(d[i22q, "RIGHT_d_out_in"], d[isca, "RIGHT_d_out_in"])
 (describe(d[i22q, "RIGHT_d_out_in"])[['mean']] - describe(d[isca, "RIGHT_d_out_in"])[['mean']])/describe(d$RIGHT_d_out_in)[['sd']]
+
+###Landmark Graph###
+lm_tab<-describeBy(d[,c("LEFT_d_out_in","RIGHT_d_out_in")], group = d$dx2)
+lm_tab_out<-data.frame(
+c("td","td","22q","22q", "sca","sca"),
+c("left","right","left","right","left","right"),
+c(lm_tab$`1td`[,'mean'],lm_tab$`q22`[,'mean'],lm_tab$`sca`[,'mean']),
+c(lm_tab$`1td`[,'sd'],lm_tab$`q22`[,'sd'],lm_tab$`sca`[,'sd']),
+c(lm_tab$`1td`[,'se'],lm_tab$`q22`[,'se'],lm_tab$`sca`[,'se']),
+c(lm_tab$`1td`[,'n'],lm_tab$`q22`[,'n'],lm_tab$`sca`[,'n']))
+
+colnames(lm_tab_out)<-c("dx","side","mean","sd","se","n")
+
+lm_tab_out$mean <-abs(lm_tab_out$mean)
+
+write.csv(lm_tab_out, "landmark_for_graph.csv",row.names=F)
