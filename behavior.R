@@ -54,6 +54,18 @@ library(psych)
 library(psych)
 (describeBy(d$ALLMEAN, d$dx)$`1td`[['mean']] - describeBy(d$ALLMEAN, d$dx)$`q22`[['mean']])/describe(d$ALLMEAN)[['sd']]
 
+###for graph###
+library(psych)
+tab<-describeBy(d[,c('ALLMEAN','RMEAN','LMEAN')],group=d$dx2)
+tab_out<-data.frame(c("td","td","td", "22q","22q","22q","sca","sca","sca"),
+c("both","right","left","both","right","left","both","right","left"),
+c(tab$`1td`[,'mean'], tab$`q22`[,'mean'], tab$`sca`[,'mean']),
+c(tab$`1td`[,'sd'], tab$`q22`[,'sd'], tab$`sca`[,'sd']),
+c(tab$`1td`[,'se'], tab$`q22`[,'se'], tab$`sca`[,'se']),
+c(tab$`1td`[,'n'], tab$`q22`[,'n'], tab$`sca`[,'n']) )
+colnames(tab_out)<-c("dx","hand","mean","sd","se","n")
+write.csv(tab_out, "linebisection_for_graph.csv", row.names=F)
+
 ###Landmark###
 ##SCA separate##
 #left side#
