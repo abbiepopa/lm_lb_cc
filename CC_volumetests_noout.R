@@ -30,31 +30,36 @@ colnames(segs)[[1]]<-"studyid"
 
 segs<-merge(sid, segs, by = 'studyid', all.x = F, all.y = F)
 
-#same
-pairwise.t.test(segs$cc_anterior, segs$dx, p.adjust.method = "fdr")
-
-#mid-anterior different
-pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "none")
-pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "fdr")
+chisq.test(rbind(c(34,52,23), c(46 - 34, 75 - 52, 17)))
 
 spec_t_test_sca <- function(g1,g2,cc){
 	print(t.test(segs[which(segs$dx == g1), cc], segs[which(segs$dx == g2), cc]))
 	print((mean(segs[which(segs$dx == g1), cc]) - mean(segs[which(segs$dx == g2), cc]))/sd(segs[,cc]))
 }
 
-spec_t_test_sca(3,1,"cc_mid_anterior")
-#central different
+#anterior - different
+pairwise.t.test(segs$cc_anterior, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_anterior, segs$dx, p.adjust.method = "fdr")
+spec_t_test_sca(3,1,"cc_anterior")
+
+#mid-anterior same
+pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "none")
+pairwise.t.test(segs$cc_mid_anterior, segs$dx, p.adjust.method = "fdr")
+
+#central same
 pairwise.t.test(segs$cc_central, segs$dx, p.adjust.method = "none")
 pairwise.t.test(segs$cc_central, segs$dx, p.adjust.method = "fdr")
 spec_t_test_sca(3,1,"cc_central")
 
 
-#mid posterior different
+#mid posterior same
 pairwise.t.test(segs$cc_mid_posterior, segs$dx, p.adjust.method = "none")
 pairwise.t.test(segs$cc_mid_posterior, segs$dx, p.adjust.method = "fdr")
 
-
+#posterior different
+pairwise.t.test(segs$cc_posterior, segs$dx, p.adjust.method = "none")
 pairwise.t.test(segs$cc_posterior, segs$dx, p.adjust.method = "fdr")
+spec_t_test_sca(3,1,"cc_posterior")
 
 ###for plotting###
 library(psych)
