@@ -1,6 +1,3 @@
-included <-c((75 - 11), (46 - 3), (17+23))
-outliers <- c(11, 3, 0)
-
 d<-rbind (included, outliers)
 colnames(d)<-c("q22","td","sca")
 
@@ -9,7 +6,7 @@ setwd("~/Documents/cycle2/linemark/data/processed")
 setwd("~/Documents/cycle2/linemark/data/processed")
 
 d<-read.csv("lm_lb.csv")
-seg<-read.csv("seg_noout.csv")
+seg<-read.csv("seg.csv")
 sid<-d['studyid']
 
 
