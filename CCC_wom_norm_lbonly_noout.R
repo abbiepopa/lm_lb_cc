@@ -64,3 +64,5 @@ summary(lm(err_to_rgt ~ cc_central, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
 summary(lm(err_to_rgt ~ cc_mid_anterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
 summary(lm(err_to_rgt ~ cc_anterior, data = lb_seg[which(lb_seg$dx.x == "TD"),]))
 ### don't need to redo SCA bc none were removed
+
+write.csv(lb_seg, 'lb_seg.csv',row.names=F)
