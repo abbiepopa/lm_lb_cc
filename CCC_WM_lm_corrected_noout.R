@@ -76,3 +76,5 @@ lm_seg_er(ixxy)
 print("SCA")
 lm_seg_er(isca)
 #nothing for sca alone
+
+write.csv(lm_seg, "lm_seg.csv",row.names = F)
