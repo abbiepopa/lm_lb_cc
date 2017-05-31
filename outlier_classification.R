@@ -49,15 +49,52 @@ describe(small_rows$age)
 t.test(big_rows$age, lb_noout$age)
 t.test(small_rows$age, lb_noout$age)
 
+##set up normed segs
+segs<-seg_all[,c("Measure.volume","DX","CC_Posterior","CC_Mid_Posterior","CC_Central","CC_Mid_Anterior","CC_Anterior", "CorticalWhiteMatterVol")]
+colnames(segs)<-tolower(colnames(segs))
+
+segs_notnorm<-segs
+
+segs$cc_posterior <- segs$cc_posterior/segs$corticalwhitemattervol
+segs$cc_mid_posterior <- segs$cc_mid_posterior/segs$corticalwhitemattervol
+segs$cc_central <- segs$cc_central/segs$corticalwhitemattervol
+segs$cc_mid_anterior <- segs$cc_mid_anterior/segs$corticalwhitemattervol
+segs$cc_anterior <- segs$cc_anterior/segs$corticalwhitemattervol
+
+big_segs<-merge(big_rows, segs, by.x = 'studyid', by.y = 'measure.volume')
+
 ##############
 ###Landmark###
 ##############
 
 ###what is the mean in the big guys? is it lower or higher than the other guys?
+biglm <- merge(big_rows, lm, all.x = F, all.y = F)
+describe(biglm[,c('left_d_out_in', 'right_d_out_in')])
+t.test(biglm$left_d_out_in, lm_noout$left_d_out_in)
+t.test(biglm$right_d_out_in, lm_noout$right_d_out_in)
+
 ###what is the correlation in the big guys? is it the same as in the other guys?
+big_segs_lm <- merge(big_segs, lm)
+
+summary(lm(left_d_out_in~cc_posterior, data = big_segs_lm))
+summary(lm(left_d_out_in~cc_mid_posterior, data = big_segs_lm))
+summary(lm(left_d_out_in~cc_central, data = big_segs_lm))
+summary(lm(left_d_out_in~cc_mid_anterior, data = big_segs_lm))
+summary(lm(left_d_out_in~cc_anterior, data = big_segs_lm))
+
+
+summary(lm(right_d_out_in~cc_posterior, data = big_segs_lm))
+summary(lm(right_d_out_in~cc_mid_posterior, data = big_segs_lm))
+summary(lm(right_d_out_in~cc_central, data = big_segs_lm))
+summary(lm(right_d_out_in~cc_mid_anterior, data = big_segs_lm))
+summary(lm(right_d_out_in~cc_anterior, data = big_segs_lm))
+
 
 ###what is the mean in the little guys? is it lower or higher than the other guys?
-
+smalllm <- merge(small_rows, lm, all.x = F, all.y = F)
+describe(smalllm[,c('left_d_out_in', 'right_d_out_in')])
+t.test(smalllm$left_d_out_in, lm_noout$left_d_out_in)
+t.test(smalllm$right_d_out_in, lm_noout$right_d_out_in)
 
 ####################
 ###Line Bisection###
