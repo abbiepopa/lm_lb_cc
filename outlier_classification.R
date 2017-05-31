@@ -101,6 +101,30 @@ t.test(smalllm$right_d_out_in, lm_noout$right_d_out_in)
 ####################
 
 ###what is the mean in the big guys? is it lower or higher than the other guys?
+biglb <- merge(big_rows, lb, all.x = F, all.y = F)
+describe(biglb[,c('allmean')])
+t.test(biglb$allmean, lb_noout$allmean)
+
 ###what is the correlation in the big guys? is it the same as in the other guys?
+big_segs_lb <- merge(big_segs, lb)
+big_segs_lb$err_to_lft <- 0
+big_segs_lb[which(big_segs_lb$allmean <0), "err_to_lft"]<- big_segs_lb[which(big_segs_lb$allmean < 0), "allmean"]
+big_segs_lb$err_to_rgt <- 0
+big_segs_lb[which(big_segs_lb$allmean > 0), "err_to_rgt"] <- big_segs_lb[which(big_segs_lb$allmean > 0), "allmean"]
+
+summary(lm(err_to_lft~cc_posterior, data = big_segs_lb))
+summary(lm(err_to_lft~cc_mid_posterior, data = big_segs_lb))
+summary(lm(err_to_lft~cc_central, data = big_segs_lb))
+summary(lm(err_to_lft~cc_mid_anterior, data = big_segs_lb))
+summary(lm(err_to_lft~cc_anterior, data = big_segs_lb))
+
+summary(lm(err_to_rgt~cc_posterior, data = big_segs_lb))
+summary(lm(err_to_rgt~cc_mid_posterior, data = big_segs_lb))
+summary(lm(err_to_rgt~cc_central, data = big_segs_lb))
+summary(lm(err_to_rgt~cc_mid_anterior, data = big_segs_lb))
+summary(lm(err_to_rgt~cc_anterior, data = big_segs_lb))
 
 ###what is the mean in the little guys? is it lower or higher than the other guys?
+smalllb <- merge(small_rows, lb, all.x = F, all.y = F)
+describe(smalllb[,c('allmean')])
+t.test(smalllb$allmean, lb_noout$allmean)
